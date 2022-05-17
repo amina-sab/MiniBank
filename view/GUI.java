@@ -1,13 +1,15 @@
 package view;
 
 import java.awt.*;
+import java.util.*;
+
 import model.*;
 
 import javax.swing.*;
 
 import controler.controler;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Observer {
 
 
     JLabel solde;
@@ -18,7 +20,11 @@ public class GUI extends JFrame {
     model.Compte cpt;// referce vers le compte qui va etre gerer
 
     public GUI(Compte c) {
+
+        
         cpt = c;
+        
+        cpt.addObserver(this);
         solde = new JLabel(cpt.value + "");
         JPanel op = new JPanel();
         op.setLayout(new GridLayout(1, 2));
@@ -41,8 +47,19 @@ public class GUI extends JFrame {
 
     public static void main(String[] args) {
        Compte c = new Compte(2300000);
-       GUI g=new GUI(c);
-       g.setVisible(true);
-       g.pack();
+       GUI g1=new GUI(c);
+       g1.setVisible(true);
+       g1.pack();
+       GUI g2=new GUI(c);
+       g2.setVisible(true);
+       g2.pack();
+       GUI g3=new GUI(c);
+       g3.setVisible(true);
+       g3.pack();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        solde.setText(arg.toString());
     }
 }

@@ -1,6 +1,8 @@
 package model;
 
-public class Compte{
+import java.util.Observable;
+
+public class Compte extends Observable{
 public int value ;
 public Compte (int  vi)
 {
@@ -9,8 +11,12 @@ public Compte (int  vi)
 
 public void deb(int v){
     value=value-v;
+    this.setChanged();
+    this.notifyObservers(new Integer(value));
 }
 public void cred(int v){
     value=value+v;
+    this.setChanged();
+    this.notifyObservers(new Integer(value));
 }
 }
